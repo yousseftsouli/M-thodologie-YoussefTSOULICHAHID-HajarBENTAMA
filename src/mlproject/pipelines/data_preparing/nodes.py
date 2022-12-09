@@ -1,0 +1,26 @@
+import texthero as hero
+from texthero import preprocessing
+import pandas as pd
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+
+
+def data_preparing_1(df_new : pd.DataFrame):
+    custom_pipeline = [preprocessing.fillna, preprocessing.remove_whitespace, preprocessing.remove_urls]
+    df_new['description'] = df_new['description'].pipe(hero.clean, custom_pipeline)
+    df_new['comments'] = df_new['comments'].pipe(hero.clean, custom_pipeline)
+    df_new['tags'] = df_new['tags'].pipe(hero.clean, custom_pipeline)
+    analyzer = SentimentIntensityAnalyzer()
+    description_analysis = df_new['description'].apply(analyzer.polarity_scores).apply(pd.Series)
+    tags_analysis = df_new['tags'].apply(analyzer.polarity_scores).apply(pd.Series)
+    comments_analysis = df_new['comments'].apply(analyzer.polarity_scores).apply(pd.Series)
+    description_analysis.rename(
+        columns={"neg": "des_neg", "neu": "des_neu", "pos": "des_pos", "compound": "des_compound"}, inplace=True)
+    comments_analysis.rename(columns={"neg": "com_neg", "neu": "com_neu", "pos": "com_pos", "compound": "com_compound"},
+                             inplace=True)
+    tags_analysis.rename(columns={"neg": "tag_neg", "neu": "tag_neu", "pos": "tag_pos", "compound": "tag_compound"},
+                         inplace=True)
+
+    sentiment_df = pd.concat([description_analysis, comments_analysis, tags_analysis], axis=1)
+    cleaned_df = pd.concat([df_new, sentiment_df], axis=1)
+    cleaned_df = cleaned_df.drop(["comments", "description", "tags", "title"], axis=1)
+    return cleaned_df
