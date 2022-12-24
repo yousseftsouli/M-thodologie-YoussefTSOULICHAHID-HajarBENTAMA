@@ -23,4 +23,8 @@ catboostregressormodel:
   type : pickle.PickleDataSet
   filepath: data/06_models/catboostregressormodel.pkl
 
+bag_of_words_model:
+  type : pickle.PickleDataSet
+  filepath: data/06_models/bagofwordsmodel.pkl
+
 
