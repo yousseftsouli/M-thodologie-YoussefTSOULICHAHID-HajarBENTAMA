@@ -19,7 +19,7 @@ def preprocessing_date(df : pd.DataFrame):
     return df
 
 
-def preprocessing_final(df : pd.DataFrame):
+def preprocessing_final(df: pd.DataFrame):
     df_new = df.drop(['video_id', 'published_at', 'channel_id', 'channel_title',
          'Date', 'Day', 'Month', 'Year', 'Time'], axis=1)
     # we filtered enough data to get the same amount of rows '23 000' at the end of each filtering.

@@ -4,7 +4,7 @@ generated using Kedro 0.18.3
 """
 
 from kedro.pipeline import Pipeline, node, pipeline
-from .nodes import data_preparing_1
+from .nodes import data_preparing_1, data_preparing_2
 
 
 def create_pipeline(**kwargs) -> Pipeline:
@@ -15,6 +15,13 @@ def create_pipeline(**kwargs) -> Pipeline:
             inputs=["youtube_dataset_final"],
             outputs="youtube_dataset_prepared",
             name="data_preparing_1"
+        ),
+
+        node(
+            func=data_preparing_2,
+            inputs=["youtube_dataset_final"],
+            outputs="youtube_dataset_prepared_2",
+            name="data_preparing_2"
         ),
 
 

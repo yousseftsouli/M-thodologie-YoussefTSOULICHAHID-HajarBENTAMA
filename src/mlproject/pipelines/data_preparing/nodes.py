@@ -34,9 +34,7 @@ def data_preparing_2(df_new : pd.DataFrame):
     for text_column in ['title', 'tags']:
         vec = CountVectorizer(max_features=TOP_N_WORDS)
         txt_to_fts = vec.fit_transform(df_new[text_column]).toarray()
-        txt_to_fts.shape
-
-        names = vec.get_feature_names_out()
+        #names = vec.get_feature_names_out()
         #print("Top repeated words for {}:".format(text_column), names)
         txt_fts_names = [text_column + f'_word_{i}_count' for i in range(TOP_N_WORDS)]
         bag_of_words_df[txt_fts_names] = txt_to_fts

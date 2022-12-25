@@ -19,7 +19,7 @@ def create_pipeline(**kwargs) -> Pipeline:
 
         node(
             func=bag_of_words,
-            inputs=["youtube_dataset_prepared"],
+            inputs=["youtube_dataset_prepared_2"],
             outputs="bag_of_words_model",
             name="bag_of_words"
         ),

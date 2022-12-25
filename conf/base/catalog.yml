@@ -19,6 +19,10 @@ youtube_dataset_prepared:
   type: pandas.CSVDataSet
   filepath: data/01_raw/youtube_dataset_prepared.csv
 
+youtube_dataset_prepared_2:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/youtube_dataset_prepared_2.csv
+
 catboostregressormodel:
   type : pickle.PickleDataSet
   filepath: data/06_models/catboostregressormodel.pkl
